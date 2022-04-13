@@ -45,3 +45,7 @@ ipcMain.on("message", (event: IpcMainEvent, message: any) => {
   console.log(message);
   setTimeout(() => event.sender.send("message", "hi from electron"), 500);
 });
+
+ipcMain.on("banana", (_, ...args) => {
+  console.log(args);
+});

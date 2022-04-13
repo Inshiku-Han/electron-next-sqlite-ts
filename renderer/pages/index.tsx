@@ -10,6 +10,10 @@ const IndexPage = () => {
     });
   }, []);
 
+  useEffect(() => {
+    ipcRenderer.send("banana", { a: 1 });
+  }, []);
+
   const onSayHiClick = () => {
     global.ipcRenderer.send("message", "hi from next");
   };
