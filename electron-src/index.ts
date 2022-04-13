@@ -6,8 +6,8 @@ import { format } from "url";
 import { BrowserWindow, app, ipcMain, IpcMainEvent } from "electron";
 import isDev from "electron-is-dev";
 import prepareNext from "electron-next";
+import DB from "better-sqlite3";
 
-// Prepare the renderer once the app is ready
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
@@ -20,6 +20,11 @@ app.on("ready", async () => {
       preload: join(__dirname, "preload.js"),
     },
   });
+
+  const db = new DB(join(__dirname, "../db/test.db"));
+
+  const test = db.prepare("SELECT * FROM test").all();
+  console.log(test);
 
   const url = isDev
     ? "http://localhost:8000/"
